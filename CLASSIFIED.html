@@ -1,0 +1,150 @@
+<html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Department of Public Records — Classified</title>
+<style>
+    :root{
+        --gov-blue:#0b3d91;
+        --gov-gray:#f3f5f7;
+        --stamp-red:#b30000;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;background:var(--gov-gray);}
+    .container{min-height:100%;display:flex;align-items:center;justify-content:center;padding:3rem;position:relative;overflow:hidden;}
+    .card{width:100%;max-width:980px;background:white;border:4px solid var(--gov-blue);box-shadow:0 10px 30px rgba(0,0,0,.15);position:relative;padding:2rem 2.5rem;overflow:hidden;}
+    header{display:flex;align-items:center;gap:1rem;margin-bottom:1.25rem}
+    .seal{width:72px;height:72px;border-radius:50%;background:var(--gov-blue);color:white;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:18px;letter-spacing:.08em;}
+    h1{margin:0;font-size:1.25rem;color:var(--gov-blue)}
+    p.lead{margin:0;color:#333;opacity:.9}
+    .content{padding:1rem 0;filter:blur(6px);transition:filter .3s ease;}
+    .unlocked .content{filter:none}
+    .notice{background:#f7f9fc;border-left:4px solid var(--gov-blue);padding:1rem;margin:1rem 0;color:#111}
+    /* stamped CLASSIFIED graphics */
+    .stamp{position:absolute;font-weight:800;color:var(--stamp-red);opacity:.12;transform:rotate(-25deg);text-transform:uppercase;letter-spacing:.18em;font-size:6.5rem;pointer-events:none;mix-blend-mode:multiply}
+    .stamp.s1{top:10%;left:-6%;opacity:.12}
+    .stamp.s2{top:40%;right:-10%;transform:rotate(18deg);opacity:.1}
+    .stamp.s3{bottom:-6%;left:10%;transform:rotate(-35deg);opacity:.08}
+    /* access panel */
+    .overlay{position:absolute;inset:0;background:rgba(3,18,52,.6);display:flex;align-items:center;justify-content:center;transition:opacity .25s ease}
+    .panel{background:white;padding:1.25rem 1.5rem;border-radius:6px;min-width:320px;box-shadow:0 8px 24px rgba(2,6,23,.5);text-align:center}
+    .panel h2{margin:0 0 .5rem;font-size:1rem;color:var(--gov-blue)}
+    .panel .sub{margin:0 0 1rem;color:#444;font-size:.9rem}
+    .field{display:flex;gap:.5rem}
+    input[type="password"]{flex:1;padding:.6rem .75rem;border:2px solid #d6dbe3;border-radius:6px;font-size:1rem}
+    button{background:var(--gov-blue);color:white;border:0;padding:.6rem .85rem;border-radius:6px;font-weight:600;cursor:pointer}
+    .msg{height:1.1rem;margin-top:.6rem;color:#c00;font-weight:700}
+    .granted{color:#0a8f3d}
+    .denied{color:#b30000}
+    .status-bar{display:flex;gap:.5rem;align-items:center;justify-content:center;margin-top:.75rem;font-size:.85rem;color:#e8eef9}
+    .status-dot{width:9px;height:9px;border-radius:50%;background:#e5edf9;display:inline-block;box-shadow:0 0 0 3px rgba(255,255,255,.6) inset}
+    footer{margin-top:1.25rem;font-size:.75rem;color:#556}
+    @media (max-width:520px){.stamp{font-size:4.8rem}}
+</style>
+</head>
+<body>
+<div class="container" id="root">
+    <div class="card" id="card">
+        <div class="stamp s1">CLASSIFIED</div>
+        <div class="stamp s2">CLASSIFIED</div>
+        <div class="stamp s3">CLASSIFIED</div>
+
+        <header>
+            <div class="seal">US</div>
+            <div>
+                <h1>United States Department of Records</h1>
+                <p class="lead">Restricted — Authorized personnel only</p>
+            </div>
+        </header>
+
+        <div class="content" id="content">
+            <div class="notice">
+                Official Document — Controlled Access. This material is for cleared staff only. Unlawful disclosure may result in administrative action.
+            </div>
+
+            <section>
+                <h3 style="margin:.2rem 0 .6rem;color:#0b3d91">Document Summary</h3>
+                <p style="margin:0 0 1rem;color:#222">The enclosed files describe internal protocols and sensitive operations. Access is restricted to users with required clearance.</p>
+
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem">
+                    <div style="background:#fbfcfd;padding:1rem;border:1px solid #e6ecf6;border-radius:6px">
+                        <strong>File:</strong> OP-724/CONF<br>
+                        <strong>Date:</strong> 2025-11-12
+                    </div>
+                    <div style="background:#fbfcfd;padding:1rem;border:1px solid #e6ecf6;border-radius:6px">
+                        <strong>Status:</strong> Classified<br>
+                        <strong>Owner:</strong> Office of Records
+                    </div>
+                </div>
+
+                <p style="margin:1rem 0 0;color:#333">Detailed content hidden until access is granted.</p>
+            </section>
+
+            <footer>System Notice: All access is logged and monitored.</footer>
+        </div>
+
+        <div class="overlay" id="overlay" aria-hidden="false">
+            <div class="panel" role="dialog" aria-label="Restricted Access">
+                <h2>Restricted Access</h2>
+                <div class="sub">Enter clearance code to proceed</div>
+                <form id="pwform" onsubmit="return false;">
+                    <div class="field">
+                        <input id="pw" type="password" placeholder="Clearance code" aria-label="Clearance code" autocomplete="off" />
+                        <button id="sub">Enter</button>
+                    </div>
+                    <div class="msg" id="msg" aria-live="polite"></div>
+                </form>
+                <div class="status-bar" style="margin-top:8px">
+                    <span class="status-dot"></span><span>Verified Department Portal</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    // Password is "1234"
+    (function(){
+        const CORRECT = "1234";
+        const overlay = document.getElementById('overlay');
+        const pw = document.getElementById('pw');
+        const sub = document.getElementById('sub');
+        const msg = document.getElementById('msg');
+        const root = document.getElementById('card');
+
+        function grant(){
+            overlay.style.opacity = 0;
+            overlay.setAttribute('aria-hidden','true');
+            root.classList.add('unlocked');
+            msg.textContent = 'Access granted';
+            msg.className = 'msg granted';
+            setTimeout(()=> overlay.style.display = 'none',300);
+        }
+        function deny(){
+            msg.textContent = 'Access denied';
+            msg.className = 'msg denied';
+            pw.value = '';
+            pw.focus();
+            // simple shake
+            overlay.animate([{transform:'translateX(0)'},{transform:'translateX(-8px)'},{transform:'translateX(8px)'},{transform:'translateX(0)'}],{duration:280});
+        }
+
+        sub.addEventListener('click', attempt);
+        pw.addEventListener('keydown', e=>{ if(e.key === 'Enter') attempt(); });
+
+        // if previously unlocked in this session
+        if(sessionStorage.getItem('gov_unlocked') === '1') grant();
+
+        function attempt(){
+            const v = pw.value || '';
+            if(v === CORRECT){
+                sessionStorage.setItem('gov_unlocked','1');
+                grant();
+            } else deny();
+        }
+    })();
+</script>
+</body>
+</html>
